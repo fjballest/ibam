@@ -1,0 +1,151 @@
+#################################################################
+#                                                                   
+#         ksh envfile:                                                
+#         Additional setup file for both interactive and noninteractive
+#         Korn-Shells.
+#         Read-in after .profile ( if ENV set )
+#         (c)-1991 Francisco J. Ballesteros ( Nemo )
+#
+#################################################################
+
+
+case $- in
+*i*) 
+# 
+# Commands to interactive Korn Shells...
+# 
+
+# prompts ...
+PS2=`hostname`'$'`whoami`'>'
+PS3=`hostname`'$'`whoami`'?'
+PS1=`hostname`'\$'`whoami`'%'
+
+#
+# Terminal pseudo-keys
+stty pass8
+
+#
+# aliases : Not exported to Scprits...
+#
+alias -x sh=${SHELL:-/bin/sh}
+alias ls='ls -FCx'
+alias echo='/usr/bin/echo'
+alias exe='chmod +x'
+alias sht='shelltool'
+alias view='texx -l 1 -tm 0.3 -sm 0.3 =-0-0'
+alias cp='cp -i'
+alias mv='mv -i'
+alias pwd='echo $PWD'
+alias his='history'
+alias ll='ls -l'
+alias la='ls -aF'
+alias md=mkdir
+alias rd=rmdir
+alias lf='ls -aFl'  
+alias log='logout'
+alias del='rm -i'
+alias cls='clear'
+alias emacs='xemacs -geometry 98x48+0+0 '
+
+if [[ $0 = '-ksh' ]]
+then	#
+	# Commands to login shells ...
+	#
+	if test -r ~/.lastd
+	then	# Change to last dir....
+		cd `cat ~/.lastd`
+	fi
+
+	if test -x ~/.profile.out
+	then	# Execute it at logout....
+		trap ~/.profile.out EXIT
+	fi
+	# Logout at EOF....
+	set +o ignoreeof
+	if [[ `tty` = "/dev/console" ]]
+	then	#
+		# Do Windowing ?...
+		#
+		stty erase '^H' kill '^?' echo
+		echo "*** Select an environment ( C-c to skip ) ***"
+                select ANS in OpenLook SunView Xwindows
+                do
+                break
+                done
+                case $ANS in
+                OpenLook) 
+                 if test -x $OPENWINHOME/bin/openwin
+                 then
+		   export PATH=$OPENWINHOME/bin:$OPENWINHOME/bin/xview:/usr/local/bin:$PATH
+		   #
+		   # New aliases....
+		   #
+		   alias edit="$OPENWINHOME/bin/xview/textedit"
+		   /usr/bin/rm ~/.xinitrc
+		   /usr/bin/cp ~/.Oinitrc ~/.xinitrc 
+			 touch ~/.moises.doit.lock
+                   openwin
+                 fi;;
+                SunView)
+                 if test -x /usr/bin/sunview
+                 then
+                   export PATH=/usr/lang:/usr/bin:/usr/local:/usr/etc:/usr/ucb:$PATH
+                   sunview
+                 fi;;
+                Xwindows)
+                 if test -x /usr/local/bin/X11/startx
+                 then
+	           export PATH=/usr/local/bin/X11:/usr/local/bin:$OPENWINHOME/bin:$OPENWINHOME/bin/xview:$PATH
+									 /usr/bin/rm ~/.xinitrc
+									 /usr/bin/cp ~/.Xinitrc ~/.xinitrc
+                   startx
+									 clear
+                 fi
+                esac
+	else 	#
+		# Network connection ? ...
+		#
+		alias edit='/usr/ucb/vi'
+		if [[ `hostname` = 'moises' ]]
+		then
+		   export PATH=$OPENWINHOME/bin:$OPENWINHOME/bin/xview:/usr/local/bin:$PATH
+		   alias edit="$OPENWINHOME/bin/xview/textedit"
+			 if test -x ~/.moises.ol-init
+			 then
+				~/.moises.ol-init  
+       fi
+		fi
+
+		if [[ $term = 'network' || $TERM = 'network' ]] 
+		then
+		echo Please, select your current term-id.
+		select TERM in vt100  vt102 vt220 tvi925 sun unknown
+		do
+		break
+		done
+		fi
+		echo 'Term is '$TERM :
+		case $TERM in
+		vt100|vt200|vt102) 
+			stty erase '^?' echo
+			echo ' Del is Del ( You Knew it ? ) & Kill is ^C ';;
+		vt220) ;;
+		tvi925) 
+			stty erase '^H' kill '^^' echo
+			echo '  Del is [<-] & Kill is [Inicio]' ;;
+		sun) 
+			stty erase  '^H' kill '^?' echo
+			echo '  Kill is up & Del is down!';;
+		*) # unknown termid ...
+			stty erase '#' kill '@'
+		esac
+	fi
+else # Commands to non-login shells...
+	set -o ignoreeof
+fi
+
+
+# 
+# End of commands to interactive Korn Shells...
+# 
+esac

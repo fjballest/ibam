@@ -1,0 +1,207 @@
+# Variables section:
+# ==================
+
+IconifyByUnmapping # empty, so no icons... -> let's use the icon manager
+ShowIconManager
+IconManagerGeometry "290x48+890+70" 2
+# Zoom
+# SqueezeTitle
+WarpCursor
+NoTitleFocus
+BorderWidth	3
+TitleFont	"8x13"
+MenuFont	"8x13"
+IconFont	"8x13"
+ResizeFont	"fg-22"
+ForceIcons
+IconDirectory	"~/icons/X"  #if not there look in /usr/include/X11/bitmaps
+#Iconregion      18x24 North East 50 50
+
+#Icons
+#{
+#    "XTerm"   "xterm.icon"
+#    "emacs"   "emacs.icon"
+#    "xfd"     "xfd_icon"
+#}
+
+Cursors
+{
+     Frame     "top_left_arrow"
+     Title     "top_left_arrow"
+     Icon      "box_spiral"
+     IconMgr   "top_left_arrow"
+     Move      "fleur"
+     Resize    "fleur"
+     Menu      "sb_left_arrow"
+     Button    "hand2"
+     Wait      "watch"
+     Select    "dot"
+     Destroy   "pirate"
+}
+
+Monochrome
+{
+# if you have xterms with white backgrounds, make this black so that the
+# border highlights correctly when you enter a window.
+        BorderColor     "black"
+}
+
+Color
+{
+    IconManagerBackground "PeachPuff"
+    IconManagerForeground "SteelBlue"
+    IconManagerHighlight  "IndianRed"
+    BorderColor "red"
+    {
+ 	"emacs"	"NavyBlue"
+	"XTerm"	"Brown"
+    }
+    TitleForeground "magenta" # was white
+    TitleBackground "blue"
+    MenuForeground "yellow"
+    MenuBackground "darkgreen"
+    MenuTitleForeground "red"
+    MenuTitleBackground "blue"
+    IconForeground "darkgreen"
+    IconBackground "cadetblue"
+    IconBorderColor "green"
+}
+
+NoTitle # These won't get a title bar
+{
+"xclock"
+"xckmail"
+"xbiff"
+"xload"
+"xeyes"
+}
+
+IconManagerDontShow # or appear in the icon manager
+{ 
+"xclock"
+"xckmail"
+"xbiff"
+"xload"
+"xeyes"
+}
+
+AutoRaise
+{
+  "IconManager"
+}
+
+
+# Buttons section:
+# ================
+
+#Button = KEYS : CONTEXT : FUNCTION
+#----------------------------------
+Button1 =      : root    : f.circledown
+Button2 =      : root    : f.menu "Utilities"
+Button3 =      : root    : f.menu "TWM"
+
+Button1 =      : icon    : f.iconify
+Button2 =      : icon    : f.move
+Button3 =      : icon    : f.raiselower
+
+Button1 =  m   : title   : f.raise
+Button2 =  m   : title   : f.lower
+Button3 =  m   : title   : f.menu "TWM"
+
+Button1 =  c   : title   : f.raise
+Button2 =  c   : title   : f.move
+Button3 =  c   : title   : f.lower
+
+Button1 =      : frame   : f.raiselower
+Button2 =      : frame   : f.move
+Button3 =      : frame   : f.raiselower
+
+
+# Menus section:
+# ==============
+
+menu "TWM"
+{
+"TWM Window Manager" f.title
+
+"Refresh"	     f.refresh
+"Focus on Root"	     f.unfocus
+"Focus on Window"    f.focus
+"(De)Iconify"	     f.iconify
+"Move Window"	     f.move
+"Resize Window"	     f.resize
+"Raise Window"	     f.raise
+"Lower Window"	     f.lower
+"Destroy Window"     f.destroy
+"Cut File"	     f.cutfile
+#"twm Version"	     f.version
+"Icon Manager"	     f.showiconmgr
+"Source .twmrc"      f.twmrc
+"Remote login"       f.menu      "rlogin"
+"New windows"	     f.menu      "NewWindows"
+# "Kill twm"	     f.menu      "exit TWM"
+"Exit X Windows"     f.menu      "exit X"
+}
+
+
+menu "rlogin"
+{
+"Remote login" f.title
+"esther" ! "xterm -title esther -geometry 80x50+230-120 -e  rlogin esther &"
+"moises" ! "xterm -title moises  -geometry 80x50+230-120 -e  rlogin moises &"
+"judith" ! "xterm -title judith  -geometry 80x50+230-120 -e  rlogin judith &"
+"Sol" ! "xterm -title Sol -geometry 80x50+230-120 -e rsh sol &"
+}
+
+menu "NewWindows"
+{
+"New Windows" f.title
+#
+"xterm-small font" !"xterm -title `hostname`-small -bg PaleGoldenRod -geometry 68x55-0-0 &"
+#
+"xterm-large font" !"xterm -title `hostname`-large -fn -misc-fixed-medium-r-normal--20-140-100-100-c-100-iso8859-1 -geometry 40x35-0-0 -bg PaleGoldenRod &"
+#
+"MainEmacsWindow"  !"'emacs' -l ~/.emacs -geometry 80x58+2+2 -fn 9x15 -bg Black -fg MediumSpringGreen  -cr PaleGoldenRod -ms LightGrey &"
+#
+"SuperEmacsWindow" !"'emacs'  -l ~/.emacs -geometry 155x66+2+2 -bg Black -fg Green -cr PalegoldenRod -ms tomato &"
+#
+}
+
+menu "exit TWM"
+{
+"Exit TWM"                f.title
+
+"Select if you're SURE!"  f.quit
+}
+
+
+menu "exit X"
+{
+"Exit X"                  f.title
+
+#"Select if you're SURE!" !"kill -TERM $XTOOLSPID" # still not working...
+"Select if you're SURE!"  f.quit
+}
+
+menu "Utilities"
+{
+  "Utilities"      f.title
+
+#  "Typescript"     !"typescript"
+#  "Clock"          !"xclock -g 64x64-5+5 &"
+#  "Digital Clock"  !"xclock -g 128x32-5-5 -d &"
+#  "Mail Box"       !"xbiff  -g 64x64-74+5 &"
+#  "Console"        !"console"
+#  "Help"           !"help"
+#  "EZ"             !"ez"
+#  "ZIP"            !"zip"
+#  "Messages"       !"messages"
+  "Calculator"     !"xcalc &"
+#  "RPN Calculator" !"xcalc -rpn &"
+  "Window Dump"    !"xdpr -device ps  &"
+  "X-Man"	   !"xman &"
+  "Load Monitor"   !"xload -g 128x64+5-5 &"
+  "X-Eyes"         !"xeyes -g 128x64+512+5 &"
+  "X-Edit"         !"xedit &"
+}
+

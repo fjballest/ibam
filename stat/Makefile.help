@@ -1,0 +1,50 @@
+#
+#
+#   L.B.A.M.[stat]  @(#)Makefile.help	1.0
+#   Make help 
+#
+#       (c) Laboratorio de Lenguajes Declarativos (LLD) 1989,1990,1991.
+#   
+#
+
+	**** IMPORTANT ****
+	You must make before the ../txio ../ipc and ../share files. 
+	Please, read the ../txio|ipc|share/README files.
+	*******************
+
+
+
+
+        The  help lines below have format:
+
+                * [command]  --> [help about command]
+
+        You can make :
+
+	* make showall -->  List files.
+	* make help    -->  Get this help. ( The default )
+        * make stat    -->  Make statistics and timing.
+	* make all     -->  (Re)Build the entire tables.
+        * make clean   -->  Remove garbage.
+	* make xref    -->  Get the cross-references listing.
+	                    ( `cxref' must be on your path ).
+
+        Symbols that should be defined :
+
+	* BABELROOT    --> Babel root directory.
+	* CPPFLAGS     --> Flags to C preprocessor.
+	* LDFLAGS      --> Flags to ld.
+	* CC           --> C compiler.
+	* CFLAGS       --> Flags to C compiler.
+
+	In addition you should define the apropiate symbols as says the
+	help from make at BABELROOT directory. Please go to BABELROOT and
+	type: " make [RETURN]".
+
+        Defined symbols should be defined to '1'.
+                i.e.:
+                        -DTIME=1
+
+
+                        (c) L.L.D. - Madrid, 1991.
+

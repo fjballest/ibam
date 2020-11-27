@@ -1,0 +1,6 @@
+cd $SRC/share/mem
+touch *.[ch]
+cd $SRC/graph/gc
+touch *.[ch]
+cd $SRC/tst
+

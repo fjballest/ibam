@@ -1,0 +1,46 @@
+# @(#)Logout 1.3 88/02/08 SMI
+############################################################
+#
+#         .logout file
+#
+#         Read in when you exit from the login shell.
+#         For performing housekeeping while your are away.
+#
+############################################################
+
+#
+# Clean the door....
+#
+
+clear
+echo "`hostname`: `whoami` logged out at `date`"
+echo 'Goodbye!'
+
+#
+# Save where we are ...
+#
+if test -d $TMP 
+then
+	if test -r ${TMP}/lastdir 
+	then
+		chmod +w ${TMP}/lastdir
+  fi
+	pwd > ${TMP}/lastdir
+	chmod -w ${TMP}/lastdir
+fi
+#
+#  What's new ? ....
+#
+if test -r /etc/motd
+then
+	 cat /etc/motd
+fi
+
+#
+#  Make a big fun .....
+#
+if test -x /usr/games/fortune
+then
+	/usr/games/fortune -a
+fi
+

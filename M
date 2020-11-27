@@ -1,0 +1,4 @@
+cc -sb -o boot boot.c ipc/ipc.c share/err.c
+cc -sb -o bam bam.c ipc/ipc.c
+cc -sb -o stat/lbamstd stat/lbamstd.c ipc/ipc.c share/err.c share/rgetopts.c
+

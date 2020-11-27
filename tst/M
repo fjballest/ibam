@@ -1,0 +1,1 @@
+cc -g -sb -o tst tst-1.c ../share/err.o ../share/share.o ../share/mem/gmm.o ../share/mem/blm.o ../share/mem/pgpool.o  ../share/mem/vadd.o ../graph/gc/gc.o ../share/stck.o ../share/list.o

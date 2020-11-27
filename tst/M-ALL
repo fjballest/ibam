@@ -1,0 +1,6 @@
+cd $SRC/share
+make share
+cd $SRC/graph/gc
+make gc
+cd $SRC/tst
+M
